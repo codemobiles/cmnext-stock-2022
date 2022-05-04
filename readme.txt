@@ -1,6 +1,8 @@
 # create and run project
 npx create-next-app@latest cmnext-stock-2022 --typescript
-yarn dev
+yarn dev 
+or 
+npm run dev
 
 # vscode extensions
 code --install-extension dsznajder.es7-react-js-snippets
