@@ -61,18 +61,18 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Menu() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+type MenuProp = {
+  open: boolean;
+  onDrawerClose: () => void;
+};
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+export default function Menu({ open, onDrawerClose }: MenuProp) {
+  const theme = useTheme();
 
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={onDrawerClose}>
           {theme.direction === "rtl" ? (
             <ChevronRightIcon />
           ) : (
