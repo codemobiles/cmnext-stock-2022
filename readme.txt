@@ -14,3 +14,7 @@ code --install-extension riazxrazor.html-to-jsx
 code --install-extension christian-kohler.path-intellisense
 code --install-extension alexcvzz.vscode-sqlite
 
+# add mui libs
+yarn add @emotion/cache @emotion/react @emotion/server @emotion/styled
+yarn add @mui/material
+yarn add @mui/icons-material
