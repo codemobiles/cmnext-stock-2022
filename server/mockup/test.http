@@ -1,0 +1,7 @@
+### test 1
+GET http://localhost:8085/api/v2/stock/product HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwibGV2ZWwiOiJub3JtYWwiLCJpYXQiOjE2NTE4MDcwNDh9.5-mN_InFl5jENpi6lOofJFi0GJyVmYvaQyoOSJkBB2g
+
+### test 2
+GET http://localhost:8085/api/v2/stock/product HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwibGV2ZWwiOiJub3JtYWwiLCJpYXQiOjE2NTE4MDcwNDh9.5-mN_InFl5jENpi6lOofJFi0GJyVmYvaQyoOSJkBB2g
