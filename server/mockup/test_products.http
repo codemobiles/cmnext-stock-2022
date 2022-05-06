@@ -13,12 +13,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkb
 
 ### Create 
 POST http://localhost:8085/api/v2/stock/product HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwibGV2ZWwiOiJub3JtYWwiLCJpYXQiOjE2NTA2MTY2NTJ9.JvXvbJsq7iWfDFNtyw2bzeaL0VXtGEAV1IdGZfGsmKo
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name";
 
-Angular 
+Angular
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="stock";
 
@@ -37,12 +38,13 @@ Content-Type: image/png
 
 ### Update 
 PUT http://localhost:8085/api/v2/stock/product HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwibGV2ZWwiOiJub3JtYWwiLCJpYXQiOjE2NTA2MTY2NTJ9.JvXvbJsq7iWfDFNtyw2bzeaL0VXtGEAV1IdGZfGsmKo
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="id";
 
-39
+47
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name";
 
