@@ -55,7 +55,7 @@ export default function register({}: Props) {
           fullWidth
           size="small"
           color="primary"
-          onClick={() => Router.push("/")}
+          onClick={() => Router.push("/login")}
         >
           Cancel
         </Button>
