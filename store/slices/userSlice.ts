@@ -11,6 +11,10 @@ interface UserState {
   user?: UserData;
 }
 
+interface SingleProp {
+  data: string;
+}
+
 const initialState: UserState = {
   username: "kan",
   accessToken: "",
@@ -23,8 +27,8 @@ const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    resetUsername: (state, action: any) => {
-      state.username = action.payload.newUsername;
+    resetUsername: (state, action: PayloadAction<SingleProp>) => {
+      state.username = action.payload.data;
     },
   },
   extraReducers: (builder) => {},

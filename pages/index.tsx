@@ -13,7 +13,7 @@ export default function Index({}: Props) {
   return (
     <Layout>
       <div>Lek {user.username}</div>
-      <button onClick={() => dispatch(resetUsername({ newUsername: "5555" }))}>
+      <button onClick={() => dispatch(resetUsername({ data: "5555" }))}>
         Reset
       </button>
     </Layout>
