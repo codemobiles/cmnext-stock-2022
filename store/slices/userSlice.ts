@@ -23,6 +23,21 @@ const initialState: UserState = {
   user: undefined,
 };
 
+interface SignInAction {
+  username: string;
+  password: string;
+}
+
+export const signUp = createAsyncThunk(
+  "user/signup",
+  async (credential: SignInAction) => {
+    const p1 = new Promise((res) =>
+      setTimeout(() => res({ result: "success" }), 3000)
+    );
+    return await p1;
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
@@ -31,7 +46,11 @@ const userSlice = createSlice({
       state.username = action.payload.data;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(signUp.fulfilled, (state, action: any) => {
+      state.username = action.payload.result;
+    });
+  },
 });
 
 export const { resetUsername } = userSlice.actions;
