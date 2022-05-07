@@ -1,15 +1,16 @@
 import Layout from "@/components/Layouts/Layout";
+import { userSelector } from "@/store/slices/userSlice";
 import React from "react";
 import { useSelector } from "react-redux";
 
 type Props = {};
 
 export default function Index({}: Props) {
-  const userSelector = useSelector((store: any) => store.user);
+  const user = useSelector(userSelector);
 
   return (
     <Layout>
-      <div>Lek {userSelector.username}</div>
+      <div>Lek {user.username}</div>
     </Layout>
   );
 }
