@@ -4,6 +4,7 @@ import { RootState } from "@/store/store";
 import * as serverService from "@/services/serverService";
 import httpClient from "@/utils/httpClient";
 import { AxiosRequestConfig } from "axios";
+import Router from "next/router";
 
 interface UserState {
   username: string;
@@ -59,6 +60,11 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const signOut = createAsyncThunk("user/signout", async () => {
+  await serverService.signOut();
+  Router.push("/login");
+});
+
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
@@ -83,6 +89,12 @@ const userSlice = createSlice({
       state.accessToken = "";
       state.isAuthenticated = false;
       state.isAuthenticating = false;
+      state.user = undefined;
+    });
+    builder.addCase(signOut.fulfilled, (state, action) => {
+      state.accessToken = "";
+      state.isAuthenticated = false;
+      state.isAuthenticating = true;
       state.user = undefined;
     });
   },

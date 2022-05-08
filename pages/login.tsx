@@ -17,7 +17,7 @@ import { signIn } from "@/store/slices/userSlice";
 
 type Props = {};
 
-export default function login({}: Props) {
+export default function Login({}: Props) {
   const dispatch = useAppDispatch();
 
   const showForm = ({

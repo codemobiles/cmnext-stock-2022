@@ -4,7 +4,7 @@ import {
   HTTP_METHOD_GET,
   ACCESS_TOKEN_KEY,
 } from "@/utils/constant";
-import { setCookie } from "@/utils/cookiesUtil";
+import { clearCookie, setCookie } from "@/utils/cookiesUtil";
 import httpClient from "@/utils/httpClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -41,7 +41,8 @@ async function signin(req: NextApiRequest, res: NextApiResponse<any>) {
 }
 
 function signout(req: NextApiRequest, res: NextApiResponse<any>) {
-  return res.end(`SignOut`);
+  clearCookie(res, ACCESS_TOKEN_KEY);
+  res.json({ result: "ok" });
 }
 
 function getSession(req: NextApiRequest, res: NextApiResponse<any>) {

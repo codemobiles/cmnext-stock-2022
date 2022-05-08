@@ -23,3 +23,10 @@ export const signIn = async (user: signProps): Promise<SignIn> => {
   );
   return response;
 };
+
+export async function signOut() {
+  const response = await httpClient.get(`/auth/signout`, {
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_LOCAL_API,
+  });
+  return response.data;
+}
