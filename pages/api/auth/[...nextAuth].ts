@@ -48,3 +48,4 @@ function signout(req: NextApiRequest, res: NextApiResponse<any>) {
 function getSession(req: NextApiRequest, res: NextApiResponse<any>) {
   return res.end(`GetSession`);
 }
+ 
