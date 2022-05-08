@@ -5,6 +5,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Badge, Box } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const drawerWidth = 240;
 
@@ -52,8 +56,44 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          CMNextJS Stock 2022
+          CMStock Workshop with ReactJS - Typescript (TS) V.
+          {process.env.NEXT_PUBLIC_APP_VERSION}
         </Typography>
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Typography variant="h6" noWrap component="div" fontWeight="300">
+          Updated 2022
+        </Typography>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+          >
+            <Badge badgeContent={4} color="error">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="show 17 new notifications"
+            color="inherit"
+          >
+            <Badge badgeContent={17} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-haspopup="true"
+            onClick={() => {}}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
