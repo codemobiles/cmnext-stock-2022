@@ -26,3 +26,6 @@ yarn add @types/cookie --dev
 
 # redux dev tool
 https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=th
+
+# next api
+https://nextjs.org/learn/basics/api-routes/creating-api-routes
