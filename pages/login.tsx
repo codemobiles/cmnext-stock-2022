@@ -92,7 +92,7 @@ export default function login({}: Props) {
                 if (response.meta.requestStatus === "rejected") {
                   alert("Login failed");
                 } else {
-                  alert("Login successful");
+                  Router.push("/stock");
                 }
               }}
             >
