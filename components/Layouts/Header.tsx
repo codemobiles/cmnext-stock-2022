@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Badge, Box } from "@mui/material";
+import { Badge, Box, Menu, MenuItem } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -40,6 +40,12 @@ type HeaderProp = {
 };
 
 export default function Header({ open, onDrawerOpen }: HeaderProp) {
+  const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+
+  const handleClose = () => {
+    setShowProfileMenu(false);
+  };
+
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
@@ -88,11 +94,28 @@ export default function Header({ open, onDrawerOpen }: HeaderProp) {
             size="large"
             aria-label="account of current user"
             aria-haspopup="true"
-            onClick={() => {}}
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
             color="inherit"
           >
             <AccountCircle />
           </IconButton>
+
+          <Menu
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={showProfileMenu}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => {}}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
