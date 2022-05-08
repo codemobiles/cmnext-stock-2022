@@ -19,6 +19,7 @@ type Props = {};
 
 export default function Register({}: Props) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const showForm = ({
     values,
@@ -59,7 +60,7 @@ export default function Register({}: Props) {
           fullWidth
           size="small"
           color="primary"
-          onClick={() => Router.push("/login")}
+          onClick={() => router.push("/login")}
         >
           Cancel
         </Button>
@@ -92,7 +93,7 @@ export default function Register({}: Props) {
                 if (response.meta.requestStatus === "rejected") {
                   alert("Register failed");
                 } else {
-                  Router.push("/login");
+                  router.push("/login");
                 }
               }}
             >
