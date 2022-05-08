@@ -1,5 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { HTTP_METHOD_POST, HTTP_METHOD_GET } from "@/utils/constant";
+import {
+  HTTP_METHOD_POST,
+  HTTP_METHOD_GET,
+  ACCESS_TOKEN_KEY,
+} from "@/utils/constant";
+import { setCookie } from "@/utils/cookiesUtil";
+import httpClient from "@/utils/httpClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -17,8 +23,21 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-function signin(req: NextApiRequest, res: NextApiResponse<any>) {
-  return res.end(`SignIn`);
+async function signin(req: NextApiRequest, res: NextApiResponse<any>) {
+  try {
+    const response = await httpClient.post(`/authen/login`, req.body);
+
+    const { token } = response.data;
+    setCookie(res, ACCESS_TOKEN_KEY, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "strict",
+      path: "/",
+    });
+    res.json(response.data);
+  } catch (error: any) {
+    res.status(400).end();
+  }
 }
 
 function signout(req: NextApiRequest, res: NextApiResponse<any>) {
