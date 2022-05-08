@@ -106,6 +106,8 @@ export const { resetUsername } = userSlice.actions;
 export const userSelector = (store: RootState) => store.user;
 export const isAuthenticatedSelector = (store: RootState): boolean =>
   store.user.isAuthenticated;
+export const isAuthenticatingSelector = (store: RootState): boolean =>
+  store.user.isAuthenticating;
 
 // // export reducer
 export default userSlice.reducer;
