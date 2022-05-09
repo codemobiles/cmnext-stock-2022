@@ -7,6 +7,7 @@ import {
 import { clearCookie, setCookie } from "@/utils/cookiesUtil";
 import httpClient from "@/utils/httpClient";
 import type { NextApiRequest, NextApiResponse } from "next";
+import cookie from "cookie";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const action = req.query["nextAuth"][0];
@@ -45,7 +46,19 @@ function signout(req: NextApiRequest, res: NextApiResponse<any>) {
   res.json({ result: "ok" });
 }
 
-function getSession(req: NextApiRequest, res: NextApiResponse<any>) {
-  return res.end(`GetSession`);
+async function getSession(req: NextApiRequest, res: NextApiResponse<any>) {
+  try {
+    const cookies = cookie.parse(req.headers.cookie || "");
+    const accessToken = cookies[ACCESS_TOKEN_KEY];
+    if (accessToken) {
+      const response = await httpClient.get(`/authen/profile`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      res.json(response.data);
+    } else {
+      res.json({ result: "nok" });
+    }
+  } catch (error: any) {
+    res.json({ result: "nok" });
+  }
 }
- 
