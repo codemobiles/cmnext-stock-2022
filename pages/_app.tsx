@@ -5,13 +5,11 @@ import { Provider } from "react-redux";
 import { getSession } from "@/store/slices/userSlice";
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { blue } from "@mui/material/colors";
-const drawerWidth = 240;
+import { blue, red, yellow } from "@mui/material/colors";
+
 function MyApp({ Component, pageProps }: AppProps) {
-  // update session & set token
-  React.useEffect(() => {
-    store.dispatch(getSession());
-  }, []);
+  const drawerWidth = 240;
+
   const theme = createTheme({
     components: {
       MuiDrawer: {
@@ -34,12 +32,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     },
     spacing: 8,
     palette: {
-      primary: process.env.REACT_APP_IS_PRODUCTION == "0" ? blue : blue,
+      primary: process.env.NEXT_PUBLIC_IS_PRODUCTION == "0" ? blue : blue,
       background: {
         default: "#FFF",
       },
     },
   });
+
+  // update session & set token
+  React.useEffect(() => {
+    store.dispatch(getSession());
+  }, []);
 
   return (
     <Provider store={store}>
