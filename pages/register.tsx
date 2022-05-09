@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "formik-material-ui";
 import { Formik, Form, Field, FormikProps } from "formik";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import { useAppDispatch } from "@/store/store";
 import { signUp } from "@/store/slices/userSlice";
