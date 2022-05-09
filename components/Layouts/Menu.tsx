@@ -75,7 +75,11 @@ export default function Menu({ open, onDrawerClose }: MenuProp) {
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
-        <Stack direction="row" alignItems="center">
+        <Stack
+          direction="row"
+          alignItems="center"
+          sx={{ backgroundColor: blue }}
+        >
           <Image
             src="/static/img/cm_logo.png"
             width={200}
