@@ -14,13 +14,25 @@ import { productImageURL } from "@/utils/commonUtil";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import { IconButton, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Slide,
+  Stack,
+  Typography,
+} from "@mui/material";
 import NumberFormat from "react-number-format";
 import Moment from "react-moment";
 import router from "next/router";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ProductData } from "@/models/product.model";
+import { TransitionProps } from "@mui/material/transitions";
 
 type Props = {};
 
@@ -31,9 +43,22 @@ const Stock = ({}: Props) => {
   const [selectedProduct, setSelectedProduct] =
     React.useState<ProductData | null>(null);
 
+  const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
   React.useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
@@ -133,16 +158,32 @@ const Stock = ({}: Props) => {
   return (
     <Layout>
       <div>Stock</div>
-      <div style={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={productList ?? []}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </div>
+      <DataGrid
+        sx={{ backgroundColor: "white", height: "70vh" }}
+        rows={productList ?? []}
+        columns={columns}
+        pageSize={15}
+        rowsPerPageOptions={[15]}
+      />
+
+      <Dialog
+        open={openDialog}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>Agree</Button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 };
