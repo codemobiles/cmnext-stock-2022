@@ -29,6 +29,7 @@
     "react-chartjs-2": "^4.1.0",
     "react-dom": "18.1.0",
     "react-iframe": "^1.8.0",
+    "react-medium-image-zoom": "^4.3.7",
     "react-moment": "^1.1.2",
     "react-number-format": "^4.9.3",
     "react-redux": "^8.0.1"
