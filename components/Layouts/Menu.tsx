@@ -12,8 +12,11 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { blue } from "@mui/material/colors";
-import { Stack } from "@mui/material";
+import { ListItem, Stack } from "@mui/material";
+import Link from "next/link";
 import Image from "next/image";
+import { Layers, BarChart, Person } from "@mui/icons-material";
+import router from "next/router";
 
 const drawerWidth = 240;
 
@@ -97,51 +100,58 @@ export default function Menu({ open, onDrawerClose }: MenuProp) {
         </Stack>
       </DrawerHeader>
       <Divider />
+
+      <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItemButton
-            key={text}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
+        {/* Stock */}
+        <Link href="/stock" passHref>
+          <ListItem
+            button
+            className={router.pathname === "/stock" ? "Mui-selected" : ""}
           >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            <ListItemIcon>
+              <Layers />
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
-        ))}
+            <ListItemText primary="Stock" />
+          </ListItem>
+        </Link>
+
+        {/* Report */}
+        <Link href="/report" passHref>
+          <ListItem
+            button
+            className={router.pathname === "/report" ? "Mui-selected" : ""}
+          >
+            <ListItemIcon>
+              <BarChart />
+            </ListItemIcon>
+            <ListItemText primary="Report" />
+          </ListItem>
+        </Link>
+
+        {/* Aboutus */}
+        <Link href="/aboutus" passHref>
+          <ListItem
+            button
+            className={router.pathname === "/aboutus" ? "Mui-selected" : ""}
+          >
+            <ListItemIcon>
+              <Person />
+            </ListItemIcon>
+            <ListItemText primary="About us" />
+          </ListItem>
+        </Link>
       </List>
+
       <Divider />
       <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItemButton
-            key={text}
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
-              }}
-            >
+          <ListItem button key={text}>
+            <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
+            <ListItemText primary={text} />
+          </ListItem>
         ))}
       </List>
     </Drawer>
