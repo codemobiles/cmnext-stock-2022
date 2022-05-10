@@ -20,6 +20,14 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "product/delete",
+  async (id: string) => {
+    await serverService.deleteProduct(id);
+    store.dispatch(getProducts());
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,

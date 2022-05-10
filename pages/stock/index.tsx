@@ -8,7 +8,11 @@ import {
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 import { useAppDispatch } from "@/store/store";
-import { getProducts, productSelector } from "@/store/slices/productSlice";
+import {
+  deleteProduct,
+  getProducts,
+  productSelector,
+} from "@/store/slices/productSlice";
 import { useSelector } from "react-redux";
 import { productImageURL } from "@/utils/commonUtil";
 import Image from "next/image";
@@ -102,10 +106,10 @@ const Stock = ({}: Props) => {
   };
 
   const handleDeleteConfirm = () => {
-    // if (selectedProduct) {
-    //   dispatch(deleteProduct(String(selectedProduct.id)));
-    //   setOpenDialog(false);
-    // }
+    if (selectedProduct) {
+      dispatch(deleteProduct(String(selectedProduct.id)));
+      setOpenDialog(false);
+    }
   };
 
   const columns: GridColDef[] = [
