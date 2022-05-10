@@ -14,14 +14,22 @@ import { productImageURL } from "@/utils/commonUtil";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import { Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import NumberFormat from "react-number-format";
+import Moment from "react-moment";
+import router from "next/router";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ProductData } from "@/models/product.model";
 
 type Props = {};
 
 const Stock = ({}: Props) => {
   const dispatch = useAppDispatch();
   const productList = useSelector(productSelector);
+  const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] =
+    React.useState<ProductData | null>(null);
 
   React.useEffect(() => {
     dispatch(getProducts());
@@ -65,6 +73,59 @@ const Stock = ({}: Props) => {
             fixedDecimalScale={true}
           />
         </Typography>
+      ),
+    },
+    {
+      headerName: "PRICE",
+      field: "price",
+      width: 120,
+      renderCell: ({ value }: GridRenderCellParams<string>) => (
+        <Typography variant="body1">
+          <NumberFormat
+            value={value}
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalScale={2}
+            fixedDecimalScale={true}
+            prefix={"฿"}
+          />
+        </Typography>
+      ),
+    },
+    {
+      headerName: "TIME",
+      field: "createdAt",
+      width: 220,
+      renderCell: ({ value }: GridRenderCellParams<string>) => (
+        <Typography variant="body1">
+          <Moment format="DD/MM/YYYY HH:mm">{value}</Moment>
+        </Typography>
+      ),
+    },
+    {
+      headerName: "ACTION",
+      field: ".",
+      width: 120,
+      renderCell: ({ row }: GridRenderCellParams<string>) => (
+        <Stack direction="row">
+          <IconButton
+            aria-label="edit"
+            size="large"
+            onClick={() => router.push("/stock/edit?id=" + row.id)}
+          >
+            <EditIcon fontSize="inherit" />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            size="large"
+            onClick={() => {
+              setSelectedProduct(row);
+              setOpenDialog(true);
+            }}
+          >
+            <DeleteIcon fontSize="inherit" />
+          </IconButton>
+        </Stack>
       ),
     },
   ];
