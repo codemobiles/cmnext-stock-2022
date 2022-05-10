@@ -33,4 +33,4 @@ https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfk
 # next api
 https://nextjs.org/learn/basics/api-routes/creating-api-routes
 
- 
+  
