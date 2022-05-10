@@ -14,6 +14,8 @@ import { productImageURL } from "@/utils/commonUtil";
 import Image from "next/image";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { Typography } from "@mui/material";
+import NumberFormat from "react-number-format";
 
 type Props = {};
 
@@ -53,6 +55,17 @@ const Stock = ({}: Props) => {
       field: "stock",
       headerName: "Stock",
       width: 150,
+      renderCell: ({ value }: GridRenderCellParams<string>) => (
+        <Typography variant="body1">
+          <NumberFormat
+            value={value}
+            displayType={"text"}
+            thousandSeparator={true}
+            decimalScale={0}
+            fixedDecimalScale={true}
+          />
+        </Typography>
+      ),
     },
   ];
 
