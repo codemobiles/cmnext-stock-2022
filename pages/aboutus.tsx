@@ -1,7 +1,15 @@
+import Layout from "@/components/Layouts/Layout";
+import withAuth from "@/components/withAuth";
 import React from "react";
 
 type Props = {};
 
-export default function aboutus({}: Props) {
-  return <div>aboutus</div>;
-}
+const AboutUs = ({}: Props) => {
+  return (
+    <Layout>
+      <div>AboutUs</div>
+    </Layout>
+  );
+};
+
+export default withAuth(AboutUs);

@@ -23,18 +23,18 @@ const withAuth = (WrappedComponent: React.FC) => (props: any) => {
       return null;
     }
 
-    // // If user is not logged in, return signin component
+    // If user is not logged in, return login component
     if (route !== "/login" && route !== "/register") {
       if (!isAuthenticated) {
         router.push(`/login`);
         return null;
-      } else if (route !== "/stock") {
-        router.push(`/stock`);
+      } else if (route == "/") {
+        router.push(`/stock`); // default page after login when call root path
         return null;
       }
-    }else{
+    } else {
       if (isAuthenticated) {
-        router.push(`/stock`);
+        router.push(`/stock`); // default page after login
         return null;
       }
     }
