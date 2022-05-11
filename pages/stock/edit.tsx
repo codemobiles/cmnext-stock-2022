@@ -1,7 +1,7 @@
 import Layout from "@/components/Layouts/Layout";
 import withAuth from "@/components/withAuth";
 import { ProductData } from "@/models/product.model";
-import { doGetStockById } from "@/services/serverService";
+import { doGetStockById, editProduct } from "@/services/serverService";
 import { productImageURL } from "@/utils/commonUtil";
 import {
   Card,
@@ -16,12 +16,15 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 type Props = {
   product?: ProductData;
 };
 
 const Edit = ({ product }: Props) => {
+  const router = useRouter();
+
   const showForm = ({
     values,
     setFieldValue,
@@ -152,7 +155,19 @@ const Edit = ({ product }: Props) => {
           return errors;
         }}
         initialValues={product!}
-        onSubmit={(values, { setSubmitting }) => {}}
+        onSubmit={async (values, { setSubmitting }) => {
+          let data = new FormData();
+          data.append("id", String(values.id));
+          data.append("name", values.name);
+          data.append("price", String(values.price));
+          data.append("stock", String(values.stock));
+          if (values.file) {
+            data.append("image", values.file);
+          }
+          await editProduct(data);
+          router.push("/stock");
+          setSubmitting(false);
+        }}
       >
         {(props) => showForm(props)}
       </Formik>
