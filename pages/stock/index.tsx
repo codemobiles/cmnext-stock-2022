@@ -61,9 +61,15 @@ const Stock = ({}: Props) => {
   const [selectedProduct, setSelectedProduct] =
     React.useState<ProductData | null>(null);
 
+  const [keywordSearch, setKeywordSearch] = React.useState("");
+
   React.useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  React.useEffect(() => {
+    dispatch(getProducts(keywordSearch));
+  }, [dispatch, keywordSearch]);
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -282,6 +288,17 @@ const Stock = ({}: Props) => {
     <Layout>
       <DataGrid
         components={{ Toolbar: QuickSearchToolbar }}
+        componentsProps={{
+          toolbar: {
+            value: keywordSearch,
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+              setKeywordSearch(e.target.value);
+            },
+            clearSearch: () => {
+              setKeywordSearch("");
+            },
+          },
+        }}
         sx={{ backgroundColor: "white", height: "70vh" }}
         rows={productList ?? []}
         columns={columns}
