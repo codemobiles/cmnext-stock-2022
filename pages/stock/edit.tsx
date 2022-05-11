@@ -22,7 +22,11 @@ type Props = {
 };
 
 const Edit = ({ product }: Props) => {
-  const showForm = ({ values, setFieldValue }: FormikProps<ProductData>) => {
+  const showForm = ({
+    values,
+    setFieldValue,
+    isValid,
+  }: FormikProps<ProductData>) => {
     return (
       <Form>
         <Card>
@@ -93,6 +97,7 @@ const Edit = ({ product }: Props) => {
           </CardContent>
           <CardActions>
             <Button
+              disabled={!isValid}
               fullWidth
               variant="contained"
               color="primary"
