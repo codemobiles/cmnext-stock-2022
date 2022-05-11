@@ -5,6 +5,8 @@ import {
   DataGrid,
   GridColDef,
   GridRenderCellParams,
+  GridToolbarContainer,
+  GridToolbarFilterButton,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 import { useAppDispatch } from "@/store/store";
@@ -52,6 +54,29 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const CustomToolbar: React.FunctionComponent<{
+  setFilterButtonEl: React.Dispatch<
+    React.SetStateAction<HTMLButtonElement | null>
+  >;
+}> = ({ setFilterButtonEl }) => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton ref={setFilterButtonEl} />
+    <Link href="/stock/add" passHref>
+      <Fab
+        color="primary"
+        aria-label="add"
+        sx={{
+          position: "absolute",
+          top: 10,
+          right: 10,
+        }}
+      >
+        <Add />
+      </Fab>
+    </Link>
+  </GridToolbarContainer>
+);
+
 type Props = {};
 
 const Stock = ({}: Props) => {
@@ -61,19 +86,12 @@ const Stock = ({}: Props) => {
   const [selectedProduct, setSelectedProduct] =
     React.useState<ProductData | null>(null);
 
-  const [keywordSearch, setKeywordSearch] = React.useState("");
+  const [filterButtonEl, setFilterButtonEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   React.useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
-  React.useEffect(() => {
-    dispatch(getProducts(keywordSearch));
-  }, [dispatch, keywordSearch]);
-
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
 
   const showDialog = () => {
     if (selectedProduct === null) {
@@ -218,92 +236,25 @@ const Stock = ({}: Props) => {
     },
   ];
 
-  interface QuickSearchToolbarProps {
-    clearSearch: () => void;
-    onChange: () => void;
-    value: string;
-  }
-
-  function QuickSearchToolbar(props: QuickSearchToolbarProps) {
-    return (
-      <Box
-        sx={{
-          p: 0.5,
-          pb: 0,
-        }}
-      >
-        <TextField
-          variant="standard"
-          value={props.value}
-          onChange={props.onChange}
-          placeholder="Search…"
-          InputProps={{
-            startAdornment: <Search fontSize="small" />,
-            endAdornment: (
-              <IconButton
-                title="Clear"
-                aria-label="Clear"
-                size="small"
-                style={{ visibility: props.value ? "visible" : "hidden" }}
-                onClick={props.clearSearch}
-              >
-                <Clear fontSize="small" />
-              </IconButton>
-            ),
-          }}
-          sx={{
-            width: {
-              xs: 1,
-              sm: "auto",
-            },
-            m: (theme) => theme.spacing(1, 0.5, 1.5),
-            "& .MuiSvgIcon-root": {
-              mr: 0.5,
-            },
-            "& .MuiInput-underline:before": {
-              borderBottom: 1,
-              borderColor: "divider",
-            },
-          }}
-        />
-
-        <Link href="/stock/add" passHref>
-          <Fab
-            color="primary"
-            aria-label="add"
-            sx={{
-              position: "absolute",
-              top: 10,
-              right: 10,
-            }}
-          >
-            <Add />
-          </Fab>
-        </Link>
-      </Box>
-    );
-  }
-
   return (
     <Layout>
       <DataGrid
-        components={{ Toolbar: QuickSearchToolbar }}
-        componentsProps={{
-          toolbar: {
-            value: keywordSearch,
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-              setKeywordSearch(e.target.value);
-            },
-            clearSearch: () => {
-              setKeywordSearch("");
-            },
-          },
-        }}
         sx={{ backgroundColor: "white", height: "70vh" }}
         rows={productList ?? []}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[15]}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            anchorEl: filterButtonEl,
+          },
+          toolbar: {
+            setFilterButtonEl,
+          },
+        }}
       />
       {showDialog()}
     </Layout>
