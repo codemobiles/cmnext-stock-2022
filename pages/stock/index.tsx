@@ -252,7 +252,7 @@ const Stock = ({}: Props) => {
       <Grid container style={{ marginBottom: 16 }} spacing={7}>
         <Grid item lg={3} md={6} sm={12}>
           <StockCard
-            icon={
+            icon={() => (
               <Image
                 src="/static/img/cm_logo.png"
                 width={200}
@@ -260,7 +260,7 @@ const Stock = ({}: Props) => {
                 objectFit="contain"
                 alt="logo"
               />
-            }
+            )}
             title="TOTAL"
             subtitle="112 THB"
             color="#00a65a"
