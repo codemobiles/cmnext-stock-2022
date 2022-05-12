@@ -34,3 +34,5 @@ https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfk
 https://nextjs.org/learn/basics/api-routes/creating-api-routes
 
   
+# chart option
+https://www.chartjs.org/docs/latest/general/options.html  
